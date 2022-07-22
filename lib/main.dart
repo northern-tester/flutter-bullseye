@@ -1,6 +1,10 @@
+import 'package:bullseye/prompt.dart';
+import 'package:bullseye/score.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'prompt.dart';
+import 'control.dart';
 
 void main() {
   runApp(const BullsEyeApp());
@@ -37,21 +41,16 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Bullseye',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
+            const Prompt(targetValue: 100),
+            const Control(),
             TextButton(
                 child:
                     const Text('Hit me', style: TextStyle(color: Colors.blue)),
-                // ignore: avoid_print
                 onPressed: () {
                   _alertIsVisible = true;
                   _showAlert(context);
                 }),
+            const Score(totalScore: 0, round: 1),
           ],
         ),
       ),

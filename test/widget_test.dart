@@ -5,9 +5,6 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'dart:js';
-import 'dart:math';
-
 import 'package:bullseye/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,7 +16,7 @@ void main() {
 
     await tester.pumpWidget(testWidget);
 
-    final textFinder = find.text('Bullseye');
+    final textFinder = find.text('PUT THE BULLSEYE AS CLOSE AS YOU CAN TO');
 
     expect(textFinder, findsOneWidget);
   });
@@ -55,13 +52,12 @@ void main() {
     expect(popUpText, findsNothing);
   });
 
-  testWidgets('GamePage is in landscape only', (WidgetTester tester) async {
+  testWidgets('Gamepage has a moving slider', (WidgetTester tester) async {
     Widget testWidget = const MediaQuery(
         data: MediaQueryData(), child: MaterialApp(home: GamePage()));
 
-    // ignore: todo
-    //TODO - set screen size to portrait and check orientattion
-
     await tester.pumpWidget(testWidget);
+    await tester.tap(find.byType(Slider));
+    await tester.drag(find.byType(Slider), const Offset(5.0, 0.0));
   });
 }
