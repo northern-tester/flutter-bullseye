@@ -43,7 +43,7 @@ void main() {
 
     await tester.tap(button);
     await tester.pump();
-    final popUpText = find.text('This is my first pop-up!');
+    final popUpText = find.text('The slider\'s value is 50');
     expect(popUpText, findsOneWidget);
 
     final awesome = find.text('Awesome!');

@@ -1,15 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'game_model.dart';
 
 class Control extends StatefulWidget {
-  const Control({Key? key}) : super(key: key);
+  const Control({Key? key, required this.model}) : super(key: key);
+
+  final GameModel model;
 
   @override
   State<Control> createState() => _ControlState();
 }
 
 class _ControlState extends State<Control> {
-  var _currentValue = 50.0;
   final Key sliderKey = UniqueKey();
 
   @override
@@ -24,13 +26,10 @@ class _ControlState extends State<Control> {
         Expanded(
           child: Slider(
             key: sliderKey,
-            value: _currentValue,
+            value: widget.model.current.toDouble(),
             onChanged: (newValue) {
               setState(() {
-                _currentValue = newValue;
-                if (kDebugMode) {
-                  print(_currentValue);
-                }
+                widget.model.current = newValue.toInt();
               });
             },
             min: 1.0,
