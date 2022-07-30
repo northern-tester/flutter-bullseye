@@ -3,6 +3,7 @@ import 'package:bullseye/score.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:math';
 import 'prompt.dart';
 import 'control.dart';
 import 'game_model.dart';
@@ -38,7 +39,7 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
-    _model = GameModel(50);
+    _model = GameModel(Random().nextInt(100) + 1);
   }
 
   var _alertIsVisible = false;
@@ -50,7 +51,7 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Prompt(targetValue: 100),
+            Prompt(targetValue: _model.target),
             Control(
               model: _model,
             ),
@@ -71,6 +72,12 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
+  int _pointsForCurrentRound() {
+    var maximumScore = 100;
+    var difference = (_model.target - _model.current).abs();
+    return maximumScore - difference;
+  }
+
   void _showAlert(BuildContext context) {
     var okButton = TextButton(
       child: const Text('Awesome!'),
@@ -87,7 +94,8 @@ class _GamePageState extends State<GamePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Hello there!'),
-          content: Text('The slider\'s value is ${_model.current}'),
+          content: Text('The slider\'s value is ${_model.current}.\n'
+              'You scored ${_pointsForCurrentRound()} points this round.'),
           actions: [
             okButton,
           ],
