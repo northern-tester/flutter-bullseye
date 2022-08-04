@@ -60,4 +60,26 @@ void main() {
     await tester.tap(find.byType(Slider));
     await tester.drag(find.byType(Slider), const Offset(5.0, 0.0));
   });
+
+  testWidgets('Round is incremented when hit me button is pressed',
+      (WidgetTester tester) async {
+    Widget testWidget = const MediaQuery(
+        data: MediaQueryData(), child: MaterialApp(home: GamePage()));
+
+    await tester.pumpWidget(testWidget);
+
+    final initialRound = find.text('Round: 1');
+    expect(initialRound, findsOneWidget);
+
+    final button = find.text('Hit me');
+    await tester.tap(button);
+    await tester.pump();
+
+    final awesome = find.text('Awesome!');
+    await tester.tap(awesome);
+    await tester.pump();
+
+    final nextRound = find.text('Round: 2');
+    expect(nextRound, findsOneWidget);
+  });
 }

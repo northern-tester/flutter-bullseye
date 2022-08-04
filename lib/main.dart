@@ -1,6 +1,5 @@
 import 'package:bullseye/prompt.dart';
 import 'package:bullseye/score.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
@@ -42,8 +41,6 @@ class _GamePageState extends State<GamePage> {
     _model = GameModel(Random().nextInt(100) + 1);
   }
 
-  var _alertIsVisible = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +56,6 @@ class _GamePageState extends State<GamePage> {
                 child:
                     const Text('Hit me', style: TextStyle(color: Colors.blue)),
                 onPressed: () {
-                  _alertIsVisible = true;
                   _showAlert(context);
                 }),
             Score(
@@ -82,11 +78,12 @@ class _GamePageState extends State<GamePage> {
     var okButton = TextButton(
       child: const Text('Awesome!'),
       onPressed: () {
+        setState(() {
+          _model.totalScore += _pointsForCurrentRound();
+          _model.target = Random().nextInt(100) + 1;
+          _model.round += 1;
+        });
         Navigator.of(context).pop();
-        _alertIsVisible = false;
-        if (kDebugMode) {
-          print('Awesome pressed! $_alertIsVisible');
-        }
       },
     );
     showDialog(
