@@ -2,6 +2,7 @@ import 'package:bullseye/styled_button.dart';
 import 'package:flutter/material.dart';
 import 'text_styles.dart';
 import 'styled_button.dart';
+import 'about.dart';
 
 class Score extends StatelessWidget {
   const Score(
@@ -46,7 +47,14 @@ class Score extends StatelessWidget {
             ],
           ),
         ),
-        StyledButton(icon: Icons.info, onPressed: () {}),
+        StyledButton(
+            icon: Icons.info,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutPage()),
+              );
+            }),
       ],
     );
   }

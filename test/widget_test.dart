@@ -28,7 +28,7 @@ void main() {
 
     await tester.pumpWidget(testWidget);
 
-    final buttonTextFinder = find.text('Hit me');
+    final buttonTextFinder = find.text('Hit Me');
 
     expect(buttonTextFinder, findsOneWidget);
   });
@@ -39,14 +39,14 @@ void main() {
         data: MediaQueryData(), child: MaterialApp(home: GamePage()));
 
     await tester.pumpWidget(testWidget);
-    final button = find.text('Hit me');
+    final button = find.text('Hit Me');
 
     await tester.tap(button);
     await tester.pump();
-    final popUpText = find.text('The slider\'s value is 50');
+    final popUpText = find.textContaining('The slider\'s value is');
     expect(popUpText, findsOneWidget);
 
-    final awesome = find.text('Awesome!');
+    final awesome = find.byIcon(Icons.close);
     await tester.tap(awesome);
     await tester.pump();
     expect(popUpText, findsNothing);
@@ -68,18 +68,24 @@ void main() {
 
     await tester.pumpWidget(testWidget);
 
-    final initialRound = find.text('Round: 1');
-    expect(initialRound, findsOneWidget);
-
-    final button = find.text('Hit me');
+    final button = find.text('Hit Me');
     await tester.tap(button);
     await tester.pump();
 
-    final awesome = find.text('Awesome!');
-    await tester.tap(awesome);
+    final close = find.byIcon(Icons.close);
+    await tester.tap(close);
     await tester.pump();
 
-    final nextRound = find.text('Round: 2');
+    final initialRound = find.text('2');
+    expect(initialRound, findsOneWidget);
+
+    await tester.tap(button);
+    await tester.pump();
+
+    await tester.tap(close);
+    await tester.pump();
+
+    final nextRound = find.text('3');
     expect(nextRound, findsOneWidget);
   });
 }
