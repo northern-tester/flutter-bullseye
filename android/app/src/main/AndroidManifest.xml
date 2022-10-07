@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bullseye">
+    package="com.bullseye.winter">
    <application
-        android:label="bullseye"
+        android:label="Bullseye Blast"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
